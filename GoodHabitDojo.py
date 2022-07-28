@@ -43,6 +43,8 @@ def getDaysUntilNextPromotion():
     daysUntilPromo = 0
     nextBeltColor = None
 
+
+
     if daysCompleted >= 90:
         return "You have completed your journey!\n"
     else:
@@ -50,9 +52,12 @@ def getDaysUntilNextPromotion():
             if daysCompleted < beltMilestones[beltColor]:
                 nextBeltColor = beltColor
                 break
-        while daysCompleted % 10 != 0:
-            daysCompleted += 1
-            daysUntilPromo += 1
+        if daysCompleted % 10 == 0:
+            daysUntilPromo = 10
+        else:
+            while daysCompleted % 10 != 0:
+                daysCompleted += 1
+                daysUntilPromo += 1
 
         nextBeltColor = colored(beltRGBs[nextBeltColor][0], beltRGBs[nextBeltColor][1], beltRGBs[nextBeltColor][2],
                                 nextBeltColor)
