@@ -12,7 +12,7 @@ RESET_COLOR_FORMAT = '\033[39m'
 
 print("Welcome to the Good Habit Dojo, where your discipline is rewarded with belt promotions, akin to those in martial"
       " arts.")
-print("Please enter the month, day, and year (in the form, mm dd yyyy) that you began"
+print("Please enter the month, day, and year (in the form, mm dd yyyy) that you began or want to begin"
       " your good habit. If you are starting today, enter today's date: ")
 
 userInput = input()
@@ -72,14 +72,18 @@ def getDaysUntilNextPromotion():
 print('\n' + 'Start Date:', startDate.strftime('%m/%d/%y') + '\n')
 
 currBelt = getCurrBelt()
-if currBelt == 'Orange':
+
+if currBelt is None:
+    print("Your good habit journey begins on " + str(startDate.strftime('%m/%d')) + '\n')
+elif currBelt == 'Orange':
     print("You are an " + colored(beltRGBs[currBelt][0], beltRGBs[currBelt][1], beltRGBs[currBelt][2], currBelt) +
           RESET_COLOR_FORMAT + "belt!\n")
 else:
     print("You are a " + colored(beltRGBs[currBelt][0], beltRGBs[currBelt][1], beltRGBs[currBelt][2], currBelt) +
           RESET_COLOR_FORMAT + "belt!\n")
 
-print(getDaysUntilNextPromotion())
+if currBelt is not None:
+    print(getDaysUntilNextPromotion())
 
 counter = 0
 seenCurrBelt = False
