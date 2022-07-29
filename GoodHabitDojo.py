@@ -46,7 +46,7 @@ def getDaysUntilNextPromotion():
 
 
     if daysCompleted >= 90:
-        return "You have completed your journey!\n"
+        return "Congratulations! You have completed your journey!\n"
     else:
         for beltColor in beltMilestones:
             if daysCompleted < beltMilestones[beltColor]:
@@ -77,10 +77,10 @@ if currBelt is None:
     print("Your good habit journey begins on " + str(startDate.strftime('%m/%d')) + '\n')
 elif currBelt == 'Orange':
     print("You are an " + colored(beltRGBs[currBelt][0], beltRGBs[currBelt][1], beltRGBs[currBelt][2], currBelt) +
-          RESET_COLOR_FORMAT + "belt!\n")
+          RESET_COLOR_FORMAT + "belt\n")
 else:
     print("You are a " + colored(beltRGBs[currBelt][0], beltRGBs[currBelt][1], beltRGBs[currBelt][2], currBelt) +
-          RESET_COLOR_FORMAT + "belt!\n")
+          RESET_COLOR_FORMAT + "belt\n")
 
 if currBelt is not None:
     print(getDaysUntilNextPromotion())
@@ -90,15 +90,15 @@ seenCurrBelt = False
 for beltColor in beltMilestones.keys():
     if startDate.today() >= (startDate + timedelta(days=beltMilestones[beltColor] + 10)) or \
             (startDate.today() - startDate).days == 90:
-        print(colored(beltRGBs[beltColor][0], beltRGBs[beltColor][1], beltRGBs[beltColor][2], beltColor), '\033[39m',
-              '- ' + (startDate + timedelta(days=beltMilestones[beltColor])).strftime('%m/%d') + ' (' +
-              str(beltMilestones[beltColor]), 'Days)', u'\u2713')
+        print(colored(beltRGBs[beltColor][0], beltRGBs[beltColor][1], beltRGBs[beltColor][2], beltColor) +
+              RESET_COLOR_FORMAT + '- ' + (startDate + timedelta(days=beltMilestones[beltColor])).strftime('%m/%d') +
+              ' (' + str(beltMilestones[beltColor]), 'Days)', u'\u2713')
     elif (startDate + timedelta(days=beltMilestones[beltColor])) <= startDate.today() <= \
             (startDate + timedelta(days=beltMilestones[beltColor] + 10)):
-        print(colored(beltRGBs[beltColor][0], beltRGBs[beltColor][1], beltRGBs[beltColor][2], beltColor),
+        print(colored(beltRGBs[beltColor][0], beltRGBs[beltColor][1], beltRGBs[beltColor][2], beltColor) +
               RESET_COLOR_FORMAT + '- ' + (startDate + timedelta(days=beltMilestones[beltColor])).strftime('%m/%d') +
               ' (' + str(beltMilestones[beltColor]), 'Days)', u'\u2610', u'\u2190', 'you are here')
     else:
-        print(colored(beltRGBs[beltColor][0], beltRGBs[beltColor][1], beltRGBs[beltColor][2], beltColor),
-              RESET_COLOR_FORMAT, '- ' + (startDate + timedelta(days=beltMilestones[beltColor])).strftime('%m/%d') +
+        print(colored(beltRGBs[beltColor][0], beltRGBs[beltColor][1], beltRGBs[beltColor][2], beltColor) +
+              RESET_COLOR_FORMAT + '- ' + (startDate + timedelta(days=beltMilestones[beltColor])).strftime('%m/%d') +
               ' (' + str(beltMilestones[beltColor]), 'Days)', u'\u2610')
