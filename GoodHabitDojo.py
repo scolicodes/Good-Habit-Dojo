@@ -92,7 +92,6 @@ else:
               RESET_COLOR_FORMAT + "belt.\n")
 
 
-
 if currBelt is not None:
     print(getDaysUntilNextPromotion(daysCompleted))
 
