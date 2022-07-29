@@ -19,6 +19,7 @@ userInput = input()
 month, day, year = userInput.split('/')
 month, day, year = int(month), int(day), int(year)
 startDate = datetime.datetime(year, month, day)
+daysCompleted = (startDate.today() - startDate).days
 
 
 def colored(r, g, b, text):
@@ -38,12 +39,9 @@ def getCurrBelt():
     return currBelt
 
 
-def getDaysUntilNextPromotion():
-    daysCompleted = (startDate.today() - startDate).days
+def getDaysUntilNextPromotion(daysCompleted):
     daysUntilPromo = 0
     nextBeltColor = None
-
-
 
     if daysCompleted >= 90:
         return "Congratulations! You have completed your journey!\n"
@@ -76,14 +74,27 @@ currBelt = getCurrBelt()
 if currBelt is None:
     print("Your good habit journey begins on " + str(startDate.strftime('%m/%d')) + '\n')
 elif currBelt == 'Orange':
-    print("You are an " + colored(beltRGBs[currBelt][0], beltRGBs[currBelt][1], beltRGBs[currBelt][2], currBelt) +
-          RESET_COLOR_FORMAT + "belt\n")
+    print("You have completed", daysCompleted, "days and are an " + colored(beltRGBs[currBelt][0],
+                                                                             beltRGBs[currBelt][1],
+                                                                             beltRGBs[currBelt][2],
+                                                                             currBelt) +
+          RESET_COLOR_FORMAT + "belt.\n")
 else:
-    print("You are a " + colored(beltRGBs[currBelt][0], beltRGBs[currBelt][1], beltRGBs[currBelt][2], currBelt) +
-          RESET_COLOR_FORMAT + "belt\n")
+    if daysCompleted == 1:
+        print("You have completed", daysCompleted, "day and are a " + colored(beltRGBs[currBelt][0],
+                                                                              beltRGBs[currBelt][1],
+                                                                              beltRGBs[currBelt][2], currBelt) +
+              RESET_COLOR_FORMAT + "belt.\n")
+    else:
+        print("You have completed", daysCompleted, "days and are a " + colored(beltRGBs[currBelt][0],
+                                                                              beltRGBs[currBelt][1],
+                                                                              beltRGBs[currBelt][2], currBelt) +
+              RESET_COLOR_FORMAT + "belt.\n")
+
+
 
 if currBelt is not None:
-    print(getDaysUntilNextPromotion())
+    print(getDaysUntilNextPromotion(daysCompleted))
 
 counter = 0
 seenCurrBelt = False
