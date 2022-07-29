@@ -12,11 +12,11 @@ RESET_COLOR_FORMAT = '\033[39m'
 
 print("Welcome to the Good Habit Dojo, where your discipline is rewarded with belt promotions, akin to those in martial"
       " arts.")
-print("Please enter the month, day, and year (in the form, mm dd yyyy) that you began or want to begin"
+print("Please enter the month, day, and year (in the form, mm/dd/yyyy) that you began or want to begin"
       " your good habit. If you are starting today, enter today's date: ")
 
 userInput = input()
-month, day, year = userInput.split()
+month, day, year = userInput.split('/')
 month, day, year = int(month), int(day), int(year)
 startDate = datetime.datetime(year, month, day)
 
