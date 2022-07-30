@@ -1,5 +1,5 @@
 import datetime
-from datetime import timedelta
+from datetime import timedelta, date
 
 beltMilestones = {'White': 0, 'Yellow': 10, 'Orange': 20, 'Green': 30,
                   'Purple': 40, 'Blue': 50, 'Brown': 60, 'Red': 70, 'Pink': 80, 'Black': 90}
@@ -10,16 +10,32 @@ beltRGBs = {'White': [255, 255, 255], 'Yellow': [255, 255, 0], 'Orange': [255, 1
 
 RESET_COLOR_FORMAT = '\033[39m'
 
-print("Welcome to the Good Habit Dojo, where your discipline is rewarded with belt promotions, akin to those in martial"
-      " arts.")
-print("Please enter the month, day, and year (in the form, mm/dd/yyyy) that you began or want to begin"
-      " your good habit. If you are starting today, enter today's date: ")
+print("Welcome to the Good Habit Dojo, where your discipline is rewarded with belt promotions akin to those in martial"
+      " arts.\n")
 
-userInput = input()
+while True:
+    try:
+        userInput = input("Please enter the month, day, and year (in the form, mm/dd/yyyy) that you began or want to "
+                          "begin your good habit. If you\nare starting today, enter today's date: ")
+        for i, char in enumerate(userInput):
+            if len(userInput) != 10:
+                raise ValueError
+            elif i == 2 or i == 5:
+                if char != '/':
+                    raise ValueError
+            else:
+                if not char.isdigit():
+                    raise ValueError
+        break
+    except ValueError:
+        print("\nThe format of the date you entered is incorrect. It should be in the form, mm/dd/yyyy. Please try "
+              "again.\n")
+
 month, day, year = userInput.split('/')
 month, day, year = int(month), int(day), int(year)
-startDate = datetime.datetime(year, month, day)
+startDate = date(year, month, day)
 daysCompleted = (startDate.today() - startDate).days
+daysUntilStart = (startDate - startDate.today()).days
 
 
 def colored(r, g, b, text):
@@ -72,7 +88,10 @@ print('\n' + 'Start Date:', startDate.strftime('%m/%d/%y') + '\n')
 currBelt = getCurrBelt()
 
 if currBelt is None:
-    print("Your good habit journey begins on " + str(startDate.strftime('%m/%d')) + '\n')
+    if daysUntilStart == 1:
+        print("Your good habit journey begins in " + str(daysUntilStart) + " day\n")
+    else:
+        print("Your good habit journey begins in " + str(daysUntilStart) + " days\n")
 elif currBelt == 'Orange':
     print("You have completed", daysCompleted, "days and are an " + colored(beltRGBs[currBelt][0],
                                                                              beltRGBs[currBelt][1],
