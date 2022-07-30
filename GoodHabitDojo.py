@@ -1,4 +1,3 @@
-import datetime
 from datetime import timedelta, date
 
 beltMilestones = {'White': 0, 'Yellow': 10, 'Orange': 20, 'Green': 30,
@@ -80,7 +79,7 @@ def getDaysUntilNextPromotion(daysCompleted):
                    'belt!\n'
         else:
             return str(daysUntilPromo) + ' more days until you get promoted to ' + nextBeltColor + RESET_COLOR_FORMAT + \
-                   'belt!\n'
+            'belt!\n'
 
 
 print('\n' + 'Start Date:', startDate.strftime('%m/%d/%y') + '\n')
@@ -94,9 +93,9 @@ if currBelt is None:
         print("Your good habit journey begins in " + str(daysUntilStart) + " days\n")
 elif currBelt == 'Orange':
     print("You have completed", daysCompleted, "days and are an " + colored(beltRGBs[currBelt][0],
-                                                                             beltRGBs[currBelt][1],
-                                                                             beltRGBs[currBelt][2],
-                                                                             currBelt) +
+                                                                            beltRGBs[currBelt][1],
+                                                                            beltRGBs[currBelt][2],
+                                                                            currBelt) +
           RESET_COLOR_FORMAT + "belt.\n")
 else:
     if daysCompleted == 1:
@@ -106,10 +105,9 @@ else:
               RESET_COLOR_FORMAT + "belt.\n")
     else:
         print("You have completed", daysCompleted, "days and are a " + colored(beltRGBs[currBelt][0],
-                                                                              beltRGBs[currBelt][1],
-                                                                              beltRGBs[currBelt][2], currBelt) +
+                                                                               beltRGBs[currBelt][1],
+                                                                               beltRGBs[currBelt][2], currBelt) +
               RESET_COLOR_FORMAT + "belt.\n")
-
 
 if currBelt is not None:
     print(getDaysUntilNextPromotion(daysCompleted))
