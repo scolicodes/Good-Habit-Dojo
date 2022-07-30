@@ -1,4 +1,6 @@
+import datetime
 from datetime import timedelta, date
+from calendar import monthrange
 
 beltMilestones = {'White': 0, 'Yellow': 10, 'Orange': 20, 'Green': 30,
                   'Purple': 40, 'Blue': 50, 'Brown': 60, 'Red': 70, 'Pink': 80, 'Black': 90}
@@ -18,20 +20,33 @@ while True:
                           "begin your good habit. If you\nare starting today, enter today's date: ")
         for i, char in enumerate(userInput):
             if len(userInput) != 10:
-                raise ValueError
+                raise ValueError("\nERROR: The format of the date you entered is incorrect. It should be in the form, "
+                                 "mm/dd/yyyy. Please try again.\n")
             elif i == 2 or i == 5:
                 if char != '/':
-                    raise ValueError
+                    raise ValueError("\nERROR: The format of the date you entered is incorrect. It should be in the "
+                                     "form, mm/dd/yyyy. Please try again.\n")
             else:
                 if not char.isdigit():
-                    raise ValueError
-        break
-    except ValueError:
-        print("\nThe format of the date you entered is incorrect. It should be in the form, mm/dd/yyyy. Please try "
-              "again.\n")
+                    raise ValueError(
+                        "\nERROR: The format of the date you entered is incorrect. It should be in the form, "
+                        "mm/dd/yyyy. Please try again.\n")
 
-month, day, year = userInput.split('/')
-month, day, year = int(month), int(day), int(year)
+        month, day, year = userInput.split('/')
+        month, day, year = int(month), int(day), int(year)
+
+        if month < 1 or month > 12:
+            raise ValueError("\nERROR: The month should be in the range [1, 12]\n")
+        daysInMonth = monthrange(year, month)[1]
+        if day < 1 or day > daysInMonth:
+            raise ValueError("\nERROR: The day you entered is out of range\n")
+        if year < datetime.MINYEAR or year > datetime.MAXYEAR:
+            raise ValueError("\nERROR: The year you enter can't be less than 1 or greater than 9999\n")
+        break
+    except ValueError as e:
+        print(e)
+
+
 startDate = date(year, month, day)
 daysCompleted = (startDate.today() - startDate).days
 daysUntilStart = (startDate - startDate.today()).days
@@ -79,7 +94,7 @@ def getDaysUntilNextPromotion(daysCompleted):
                    'belt!\n'
         else:
             return str(daysUntilPromo) + ' more days until you get promoted to ' + nextBeltColor + RESET_COLOR_FORMAT + \
-            'belt!\n'
+                   'belt!\n'
 
 
 print('\n' + 'Start Date:', startDate.strftime('%m/%d/%y') + '\n')
